@@ -1,0 +1,6 @@
+moviepy
+edge-tts
+google-generativeai
+Pillow
+openai
+requests
