@@ -37,7 +37,8 @@ def run_lesson_cycle(language):
     youtube_url = "YouTube pending auth"
     topic = lesson_data['slide1'].get('english_topic', topic_text)
     
-    if os.path.exists('token.pickle'):
+    # Check for token.pickle OR environment variable (for GitHub Actions)
+    if os.path.exists('token.pickle') or os.getenv("YOUTUBE_TOKEN_B64"):
         try:
             title = f"Learn {language}: {topic} | Koko Teacher #shorts"
             desc = f"Learn {language} vocabulary and phrases!\n\nTopic: {topic}\n\n#languagelearning #{language.lower()} #shorts #education"
@@ -46,7 +47,7 @@ def run_lesson_cycle(language):
             print(f"YouTube Error: {e}")
             youtube_url = "YouTube upload error"
     else:
-        print("YouTube Token missing.")
+        print("YouTube Token missing (no token.pickle or YOUTUBE_TOKEN_B64).")
     
     # Delete video file after upload - only keep YouTube link
     if os.path.exists(video_filename):
